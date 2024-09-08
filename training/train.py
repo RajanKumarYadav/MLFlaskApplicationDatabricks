@@ -6,6 +6,8 @@ from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_sc
 import mlflow
 import mlflow.sklearn
 
+mlflow.set_experiment("/Workspace/Users/<databricks_user_mail>/DbPredictionTrainingExperiment")
+
 # Start an MLflow run
 with mlflow.start_run() as run:
     # Load the dataset
