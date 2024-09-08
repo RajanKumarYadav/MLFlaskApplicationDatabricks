@@ -2,11 +2,12 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 import mlflow
 import mlflow.sklearn
 
 # Start an MLflow run
-with mlflow.start_run():
+with mlflow.start_run() as run:
     # Load the dataset
     df = pd.read_csv('diabetes.csv')  # Update the path if necessary
     X = df.drop('Outcome', axis=1)
@@ -22,12 +23,26 @@ with mlflow.start_run():
     model.fit(X_train, y_train)
     print('Training completed')
     
+    # Predict on the test set
+    y_pred = model.predict(X_test)
+    
+    # Calculate metrics
+    accuracy = accuracy_score(y_test, y_pred)
+    precision = precision_score(y_test, y_pred)
+    recall = recall_score(y_test, y_pred)
+    f1 = f1_score(y_test, y_pred)
+    
     # Log the model with MLflow
     mlflow.sklearn.log_model(model, 'model_diabetes_prediction')
     
-    # Optionally, log parameters, metrics, or artifacts
+    # Log metrics with MLflow
+    mlflow.log_metric('accuracy', accuracy)
+    mlflow.log_metric('precision', precision)
+    mlflow.log_metric('recall', recall)
+    mlflow.log_metric('f1_score', f1)
+    
+    # Optionally, log parameters, or artifacts
     # mlflow.log_param('param_name', value)
-    # mlflow.log_metric('metric_name', value)
     # mlflow.log_artifact('path_to_artifact')
     
     # Print the model URI to access the model
