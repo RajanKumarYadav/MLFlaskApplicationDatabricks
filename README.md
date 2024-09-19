@@ -3,7 +3,7 @@
 
 ## Topics To Be Covered
 
-## Aim : This session will explain how to achieve reproducibility in ML and MLOps using Databricks. 
+### Aim : This session will explain how to achieve reproducibility in ML and MLOps using Databricks. 
 
 1. Create Databricks Instance on Azure 
 2. Explanation of Databricks Workspace, Components, Dashbords
